@@ -1,0 +1,13 @@
+# Docker Training Projects - 10 Projects Challenge
+
+A collection of practical projects to learn and master Docker, completed as part of my backend training.
+
+## Completed Projects:
+
+### 1. Static Website Hosting with Nginx
+- **Description:** Containerized and hosted a simple static HTML website using a lightweight Nginx image.
+- **How to Run:**
+  ```bash
+  cd 01-static-website
+  docker build -t my-static-website .
+  docker run -d -p 8080:80 my-static-website
