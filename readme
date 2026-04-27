@@ -1,27 +1,98 @@
-# Docker Training Projects - 10 Projects Challenge
+<div align="center">
 
-A collection of practical projects to learn and master Docker, completed as part of my backend training.
+# 🐳 Docker 10 Projects Challenge
 
-## Completed Projects:
+🚀 A hands-on journey to master Docker, containerization, and real-world deployment through practical mini-projects.
 
-### 1. Static Website Hosting with Nginx
+<p>
+  <img src="https://media.giphy.com/media/13HgwGsXF0aiGY/giphy.gif" width="320" />
+</p>
 
-- **Description:** Containerized and hosted a simple static HTML website using a lightweight Nginx image.
-- **How to Run:**
-  ```bash
-  cd 01-static-website
-  docker build -t my-static-website .
-  docker run -d -p 8080:80 my-static-website
-  Result:
-  ```
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](#)
+[![Nginx](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white)](#)
+[![Jekyll](https://img.shields.io/badge/Jekyll-CC0000?style=for-the-badge&logo=jekyll&logoColor=white)](#)
+[![Status](https://img.shields.io/badge/Progress-Active-success?style=for-the-badge)](#)
 
-2. Jekyll Jam – Static Site Playground
-   Description: Containerized a Jekyll environment to build and preview a static website using Markdown, avoiding the need to install Ruby and Jekyll locally.
+</div>
 
-How to Run:
+---
 
-Bash
+## 📚 About This Repository
+
+This repository documents my journey learning **Docker from scratch through real projects**.
+
+Instead of just theory, this challenge focuses on building real containers, working with images, and simulating production-like environments.
+
+The roadmap is inspired by:
+👉 [Top 10 Docker Projects for Beginners](https://www.geeksforgeeks.org/blogs/docker-projects-ideas-for-beginners/)
+
+---
+
+## 🎯 Goals of This Challenge
+
+- 🧱 Understand containerization deeply
+- ⚙️ Learn Docker images, volumes, networks
+- 🌐 Deploy real applications using containers
+- 🧩 Work with microservices basics
+- 🚀 Build DevOps mindset
+
+---
+
+## 🚀 Completed Projects
+
+---
+
+### 🟢 1. Static Website Hosting with Nginx
+
+**Difficulty:** Easy  
+**Tech:** Docker + Nginx (Alpine)
+
+A simple static website served inside a Docker container using Nginx.  
+This shows how to replace local servers with lightweight containers.
+
+#### ⚡ Run it:
+
+```bash
+cd 01-static-website
+docker build -t my-static-website .
+docker run -d -p 8080:80 my-static-website
+🎬 Preview:
+<p align="center"> <img src="./screenshots/01-static-website.jpeg" width="600"/> </p>
+🟡 2. Jekyll Jam – Static Site Playground
+
+Difficulty: Easy
+Tech: Docker + Jekyll
+
+A fully containerized Jekyll environment to build and preview Markdown-based websites without installing Ruby or Jekyll locally.
+
+⚡ Run it:
 cd 02-jekyll-jam
 docker build -t my-jekyll-site .
 docker run -d -p 4000:4000 --name jekyll-container my-jekyll-site
-Result:
+🎬 Preview:
+<p align="center"> <img src="./screenshots/02-jekyll-jam.jpeg" width="600"/> </p>
+🧠 What I Learned So Far
+How Docker isolates environments
+Difference between images vs containers
+Real-world usage of Nginx inside containers
+How dev environments become portable
+Why Docker is essential for DevOps workflows
+⏳ Upcoming Projects
+ Microservices Architecture with Docker Compose
+ CI/CD Pipeline using Docker + GitHub Actions
+ Fullstack App Containerization
+ Load-balanced multi-container setup
+ Real-world deployment project (AWS or VPS)
+🎥 Bonus (Why This Repo Matters)
+
+Docker is not just a tool — it’s a mindset shift in how software is built and deployed.
+
+This repo is my step-by-step evolution from:
+👉 “I run code on my machine”
+to
+👉 “I ship environments anywhere instantly”
+
+⭐ If You Like This
+
+Give it a ⭐ and follow the journey — more advanced Docker + DevOps projects coming soon.
+```
