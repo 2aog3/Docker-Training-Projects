@@ -5,9 +5,23 @@ A collection of practical projects to learn and master Docker, completed as part
 ## Completed Projects:
 
 ### 1. Static Website Hosting with Nginx
+
 - **Description:** Containerized and hosted a simple static HTML website using a lightweight Nginx image.
 - **How to Run:**
   ```bash
   cd 01-static-website
   docker build -t my-static-website .
   docker run -d -p 8080:80 my-static-website
+  Result:
+  ```
+
+2. Jekyll Jam – Static Site Playground
+   Description: Containerized a Jekyll environment to build and preview a static website using Markdown, avoiding the need to install Ruby and Jekyll locally.
+
+How to Run:
+
+Bash
+cd 02-jekyll-jam
+docker build -t my-jekyll-site .
+docker run -d -p 4000:4000 --name jekyll-container my-jekyll-site
+Result:
