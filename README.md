@@ -6,8 +6,6 @@
 
 Computer Science Student at the German Jordanian University (GJU)
 
-Backend Developer Intern at Artl Studio
-
 Interests: Cybersecurity, Secure Backend Systems, Cloud-Native Infrastructure
 
 [![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](#)
