@@ -3,9 +3,12 @@
 # Docker Mastery: 10-Project Challenge
 
 **Ahmad Oglah Abuzaid**
-Computer Science Student — German Jordanian University (GJU)
-Backend Developer Intern — Artl Studio
-Interests: Cybersecurity · Secure Backend Systems · Cloud-Native Infrastructure
+
+Computer Science Student at the German Jordanian University (GJU)
+
+Backend Developer Intern at Artl Studio
+
+Interests: Cybersecurity, Secure Backend Systems, Cloud-Native Infrastructure
 
 [![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](#)
 [![Nginx](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white)](#)
@@ -21,15 +24,15 @@ Interests: Cybersecurity · Secure Backend Systems · Cloud-Native Infrastructur
 
 ## About This Repository
 
-This repository documents a structured, hands-on journey through Docker and container orchestration — from the simplest static site to a Kubernetes-based virtual machine. Each of the ten projects builds on the last, progressively introducing more advanced concepts: multi-container networking, CI/CD automation, horizontal scaling, observability, and security-hardened gateways. The series culminates in a project that applies rate-limiting as a first line of defense in a containerized API environment.
+This repo is my hands-on journey through Docker and container orchestration. I started from the very basics (serving a simple HTML page) and worked my way up to running virtual machines inside Kubernetes. Each project taught me something new, and they all build on top of each other.
 
-This challenge is inspired by the [Top 10 Docker Projects for Beginners](https://www.geeksforgeeks.org/blogs/docker-projects-ideas-for-beginners/) article on GeeksForGeeks. Projects 01–06 and 08 follow the original list exactly. For projects 07, 09, and 10, I deliberately replaced the suggested projects with more practical and personally relevant alternatives — explained in each project's section below.
+This challenge is inspired by the [Top 10 Docker Projects for Beginners](https://www.geeksforgeeks.org/blogs/docker-projects-ideas-for-beginners/) article on GeeksForGeeks. I followed the original list for projects 01 to 06 and project 08. For the remaining three (07, 09, and 10), I swapped the suggested projects for better alternatives that are more practical and closer to my interests in security and backend systems. Here is what I changed and why:
 
-| # | Original (GFG) | What I Built Instead | Reason |
-|---|----------------|----------------------|--------|
-| 07 | RancherVM | Nginx Load Balancer | RancherVM is outdated and no longer actively maintained. An Nginx round-robin load balancer is a fundamental, widely-used pattern in real production systems. |
-| 09 | Dokku | Prometheus + Grafana | Dokku is niche. Prometheus + Grafana is the actual industry standard for observability and is a core skill in any DevOps or backend role. |
-| 10 | Passenger Docker | Secure Gateway with Rate Limiting | Passenger Docker is a deployment wrapper. A rate-limiting gateway is directly tied to my interest in cybersecurity and demonstrates a concrete, attackable security concept. |
+| # | Original Project (GFG) | What I Built Instead | Why I Changed It |
+|---|------------------------|----------------------|------------------|
+| 07 | RancherVM | Nginx Load Balancer | RancherVM is outdated and barely maintained anymore. An Nginx load balancer is something you will actually use in real projects. |
+| 09 | Dokku | Prometheus + Grafana | Dokku is not widely used. Prometheus and Grafana are the standard tools for monitoring in almost every company. |
+| 10 | Passenger Docker | Secure Gateway with Rate Limiting | Passenger Docker is just a deployment helper with nothing interesting to learn. Rate limiting is a real security concept that I wanted to implement myself. |
 
 ---
 
@@ -37,16 +40,16 @@ This challenge is inspired by the [Top 10 Docker Projects for Beginners](https:/
 
 | # | Project | Key Technology |
 |---|---------|----------------|
-| 01 | [Static Website with Nginx](#01---static-website-with-nginx) | Docker · Nginx |
-| 02 | [Jekyll Static Site Generator](#02---jekyll-static-site-generator) | Docker · Jekyll |
-| 03 | [Node.js + MongoDB with Docker Compose](#03---nodejs--mongodb-with-docker-compose) | Docker Compose · Express · MongoDB |
-| 04 | [CI/CD with GitHub Actions](#04---cicd-with-github-actions) | GitHub Actions · Docker Build |
-| 05 | [Minecraft Server (Dockercraft)](#05---minecraft-server-dockercraft) | Docker · itzg/minecraft-server |
-| 06 | [Custom Memcached Image](#06---custom-memcached-image) | Docker · Memcached |
-| 07 | [Nginx Load Balancer](#07---nginx-load-balancer) | Docker Compose · Nginx Upstream |
-| 08 | [KubeVirt Virtual Machine](#08---kubevirt-virtual-machine) | Kubernetes · KubeVirt |
-| 09 | [Prometheus & Grafana Monitoring](#09---prometheus--grafana-monitoring) | Docker Compose · Prometheus · Grafana |
-| 10 | [Secure Gateway with Rate Limiting](#10---secure-gateway-with-rate-limiting) | Nginx · Rate Limiting · Security |
+| 01 | [Static Website with Nginx](#01---static-website-with-nginx) | Docker, Nginx |
+| 02 | [Jekyll Static Site Generator](#02---jekyll-static-site-generator) | Docker, Jekyll |
+| 03 | [Node.js + MongoDB with Docker Compose](#03---nodejs--mongodb-with-docker-compose) | Docker Compose, Express, MongoDB |
+| 04 | [CI/CD with GitHub Actions](#04---cicd-with-github-actions) | GitHub Actions, Docker Build |
+| 05 | [Minecraft Server (Dockercraft)](#05---minecraft-server-dockercraft) | Docker, itzg/minecraft-server |
+| 06 | [Custom Memcached Image](#06---custom-memcached-image) | Docker, Memcached |
+| 07 | [Nginx Load Balancer](#07---nginx-load-balancer) | Docker Compose, Nginx Upstream |
+| 08 | [KubeVirt Virtual Machine](#08---kubevirt-virtual-machine) | Kubernetes, KubeVirt |
+| 09 | [Prometheus and Grafana Monitoring](#09---prometheus-and-grafana-monitoring) | Docker Compose, Prometheus, Grafana |
+| 10 | [Secure Gateway with Rate Limiting](#10---secure-gateway-with-rate-limiting) | Nginx, Rate Limiting, Security |
 
 ---
 
@@ -56,29 +59,29 @@ This challenge is inspired by the [Top 10 Docker Projects for Beginners](https:/
   <img src="./screenshots/01-static-website.jpeg" width="700" alt="Project 01 - Static Website" />
 </p>
 
-### Objective
+### What is this project about?
 
-The goal of this project was to understand the most fundamental Docker workflow: take a static HTML file and serve it through a production-grade web server — all inside a container. Rather than installing Nginx on the host machine, the entire server is packaged and runs in complete isolation.
+The idea here is simple: instead of installing Nginx on your computer to serve a website, you put everything inside a Docker container. The container has Nginx already set up, and you just drop your HTML file into it. That is it.
 
-### Technical Implementation
+### How it works
 
 ```dockerfile
 FROM nginx:alpine
 COPY index.html /usr/share/nginx/html/index.html
 ```
 
-The Dockerfile uses `nginx:alpine` as the base image — Alpine Linux is a minimal, security-oriented distribution that keeps the final image under 25 MB. The HTML file is copied directly into Nginx's default web root. No additional configuration is needed; Nginx serves it automatically on port 80.
+This Dockerfile has only two lines. The first line says "use the Nginx image built on Alpine Linux" (Alpine is a very lightweight Linux, so the final image is only about 25 MB). The second line copies the HTML file into the folder where Nginx looks for files to serve.
 
-The page itself is a right-to-left Arabic HTML document, which validates that the containerized server handles UTF-8 character encoding and `dir="rtl"` layout correctly.
+The HTML page I made is in Arabic (right-to-left layout), which also tests that the server handles Arabic text and UTF-8 encoding correctly.
 
-**Key concepts practiced:**
-- Writing a minimal, two-line Dockerfile
-- Understanding image layers (`FROM` → `COPY`)
-- Container isolation versus host installation
+**What I learned:**
+- How to write a basic Dockerfile
+- What image layers mean (each line in the Dockerfile is a layer)
+- Why containers are better than installing software directly on your machine
 
-### Result
+### What happened when I ran it
 
-Running `docker build` and `docker run -p 8080:80` served the Arabic welcome page at `localhost:8080` instantly — no local Nginx installation, no dependency conflicts. The container runs identically on any machine with Docker installed.
+The website showed up at `localhost:8080` right away. No Nginx installation on my machine, no setup steps. Just build the image and run the container.
 
 ```bash
 cd 01-static-website
@@ -94,11 +97,11 @@ docker run -d -p 8080:80 my-static-website
   <img src="./screenshots/02-jekyll-jam.jpeg" width="700" alt="Project 02 - Jekyll Jam" />
 </p>
 
-### Objective
+### What is this project about?
 
-This project introduced the concept of using Docker as a portable development environment. Instead of installing Ruby, Bundler, and Jekyll on the host machine — a process that varies across operating systems — the entire build toolchain is encapsulated inside a Docker image.
+Jekyll is a tool that turns Markdown files into full websites. Normally, to use Jekyll you need to install Ruby and a bunch of other dependencies on your computer, and that process is painful and different on every OS. With Docker, you just use an image that already has everything installed.
 
-### Technical Implementation
+### How it works
 
 ```dockerfile
 FROM jekyll/jekyll:minimal
@@ -107,9 +110,9 @@ COPY . .
 CMD ["jekyll", "serve", "--force_polling", "-H", "0.0.0.0", "-P", "4000"]
 ```
 
-The official `jekyll/jekyll:minimal` image provides a pre-configured Ruby environment. The `WORKDIR` instruction sets the working directory to `/srv/jekyll`, the standard path Jekyll expects. The `--force_polling` flag is used because Docker on certain systems does not propagate filesystem events from the host into the container, so polling ensures live reload works correctly. Binding to `0.0.0.0` (instead of `127.0.0.1`) is essential for the port to be reachable from outside the container.
+The `jekyll/jekyll:minimal` image comes with Ruby and Jekyll ready to go. The `WORKDIR` sets the folder Jekyll expects to work in. The `--force_polling` flag is needed because Docker on some systems does not pick up file changes the normal way, so polling is a workaround to make live reload work. The `-H 0.0.0.0` part is important too: without it, Jekyll only listens inside the container and you cannot reach it from your browser.
 
-The site configuration:
+The site config:
 
 ```yaml
 # _config.yml
@@ -117,16 +120,14 @@ title: My Docker Jekyll Site
 description: Learning Docker step by step!
 ```
 
-The `index.md` is written in Markdown and converted to HTML by Jekyll at runtime — demonstrating that the container handles the full build pipeline, not just static file serving.
+**What I learned:**
+- Using Docker as a development environment, not just a server
+- Why `-H 0.0.0.0` matters when working with containers
+- How containers can replace local tool installations completely
 
-**Key concepts practiced:**
-- Using pre-built tool images as self-contained environments
-- Port binding with `-H 0.0.0.0`
-- Separating source files from the build process
+### What happened when I ran it
 
-### Result
-
-The Jekyll development server started on port 4000 and converted the Markdown source into a rendered HTML page. Any change to `index.md` triggered an automatic rebuild inside the container, with no local dependency installed on the host.
+Jekyll started on port 4000 and converted the `index.md` Markdown file into a proper HTML page. Any edit to the file triggered an automatic rebuild inside the container.
 
 ```bash
 cd 02-jekyll-jam
@@ -142,11 +143,11 @@ docker run -d -p 4000:4000 my-jekyll-site
   <img src="./screenshots/03-docker-compose.png" width="700" alt="Project 03 - Docker Compose" />
 </p>
 
-### Objective
+### What is this project about?
 
-This is where multi-container orchestration begins. The project connects a Node.js/Express API to a MongoDB database — two separate containers that communicate over a private Docker network — without any manual network configuration.
+This is the first project where two containers need to talk to each other: a Node.js backend API and a MongoDB database. Docker Compose makes this easy by letting you define both services in one file and connecting them automatically.
 
-### Technical Implementation
+### How it works
 
 ```yaml
 # docker-compose.yml
@@ -178,19 +179,19 @@ EXPOSE 5000
 CMD ["npm", "start"]
 ```
 
-Docker Compose creates an internal network automatically; the `app` service resolves the hostname `mongo` directly (as set in `MONGO_URI`) without needing to know any IP address. The `depends_on` directive ensures MongoDB starts before the application container — critical for a service that connects on startup.
+When Docker Compose starts, it creates a private network between the two containers. The `app` service can reach MongoDB just by using the name `mongo` as the hostname. You do not need to know any IP address. The `depends_on` option makes sure MongoDB starts first, because the app tries to connect to the database as soon as it boots.
 
-The `package.json` is copied and `npm install` is run *before* the source files are copied. This is a deliberate **layer-caching optimization**: if only application code changes, Docker reuses the cached `node_modules` layer and skips reinstalling dependencies entirely.
+One small but important thing: `package.json` is copied and `npm install` runs *before* the rest of the code is copied. This is a caching trick. If you only change your application code, Docker skips reinstalling all the packages and uses the cached version instead, which makes rebuilds much faster.
 
-**Key concepts practiced:**
-- Docker Compose multi-service orchestration
-- Internal DNS-based service discovery
-- Environment variable injection
-- Dockerfile layer caching strategy
+**What I learned:**
+- How Docker Compose links multiple containers together
+- How containers find each other by name (DNS inside Docker)
+- How to inject environment variables into a container
+- The Dockerfile caching trick for faster builds
 
-### Result
+### What happened when I ran it
 
-A single `docker compose up` started both the Express API and MongoDB. The server logged `MongoDB connected` and responded to HTTP requests at `localhost:5000`. The two services communicated entirely through Docker's internal network, with MongoDB never needing to be exposed to the internet.
+One command started everything. The app logged `MongoDB connected` and the API responded at `localhost:5000`. MongoDB never needed to be installed on my machine.
 
 ```bash
 cd 03-docker-compose
@@ -205,11 +206,11 @@ docker compose up -d --build
   <img src="./screenshots/04-.github.png" width="700" alt="Project 04 - GitHub Actions CI/CD" />
 </p>
 
-### Objective
+### What is this project about?
 
-This project moves beyond local development and integrates Docker into a Continuous Integration pipeline. The goal was to automate the process of building and validating the Docker image every time new code is pushed to the repository — catching broken builds before they reach production.
+The goal here is to automate the Docker build process. Every time I push code to GitHub, a pipeline automatically builds the Docker image and checks that it works. This way, if something breaks the build, I find out immediately instead of discovering it later in production.
 
-### Technical Implementation
+### How it works
 
 ```yaml
 # .github/workflows/docker-ci.yml
@@ -235,18 +236,16 @@ jobs:
         run: docker images
 ```
 
-The workflow triggers automatically on every push to `main` or `master`. It runs on a fresh GitHub-hosted Ubuntu runner that has Docker pre-installed. The pipeline checks out the repository, builds the Docker image for the Node.js application, and lists all available images to confirm success.
+The workflow file lives inside `.github/workflows/`. GitHub reads it automatically. Whenever I push to `main` or `master`, GitHub spins up a fresh Ubuntu machine with Docker already installed, checks out the code, and runs `docker build`. If the build fails for any reason (bad Dockerfile, missing file, broken dependency), the pipeline turns red and I get notified.
 
-If the `docker build` command fails — due to a broken Dockerfile, a missing file, or a failed `npm install` — the pipeline fails and the bad commit is flagged immediately in the GitHub UI.
+**What I learned:**
+- How to write a GitHub Actions workflow
+- How to automate Docker builds in CI
+- Why catching broken builds early matters
 
-**Key concepts practiced:**
-- GitHub Actions workflow syntax (triggers, jobs, steps)
-- Automated Docker builds in CI
-- Shift-left quality verification
+### What happened when I ran it
 
-### Result
-
-Every push to the main branch automatically triggered the workflow. The GitHub Actions dashboard displayed a green checkmark upon a successful build, confirming the image was reproducible from a clean environment — not just on the developer's local machine.
+Every push triggered the pipeline. The GitHub Actions tab showed a green checkmark when the build passed, which means the image builds cleanly from a fresh machine, not just on my laptop.
 
 ---
 
@@ -256,11 +255,11 @@ Every push to the main branch automatically triggered the workflow. The GitHub A
   <img src="./screenshots/05-dockercraft.png" width="700" alt="Project 05 - Dockercraft Minecraft Server" />
 </p>
 
-### Objective
+### What is this project about?
 
-This project demonstrates how Docker can run complex, stateful, third-party server applications without any manual installation. A fully functional Minecraft Java Edition server — including EULA acceptance, version pinning, and memory allocation — is configured entirely through environment variables.
+This project shows that Docker is not just for web applications. A full Minecraft Java Edition server with version pinning, EULA acceptance, and memory limits, configured entirely through environment variables in a compose file.
 
-### Technical Implementation
+### How it works
 
 ```yaml
 # docker-compose.yml
@@ -278,19 +277,18 @@ services:
     stdin_open: true
 ```
 
-The `itzg/minecraft-server` image handles the full server lifecycle: downloading the correct server JAR, applying the EULA, configuring memory, and launching the Java process. By setting `VERSION: "1.20.4"`, the server version is pinned and reproducible across any deployment. The `MEMORY: "4G"` flag internally passes `-Xmx4G -Xms4G` to the JVM. `tty: true` and `stdin_open: true` keep the server console interactive for live commands.
+The `itzg/minecraft-server` image handles everything: it downloads the correct server version, accepts the EULA, applies the memory settings, and starts the Java process. Setting `VERSION: "1.20.4"` pins the server to a specific version so it is always reproducible. The `MEMORY: "4G"` flag passes `-Xmx4G -Xms4G` to Java under the hood. `tty: true` and `stdin_open: true` keep the server terminal interactive so you can type server commands.
 
-Port 25565 is the default Minecraft port, exposed directly to the host, allowing any Minecraft client to connect to `localhost:25565`.
+Port 25565 is the default Minecraft port. Any Minecraft client can connect to `localhost:25565` directly.
 
-**Key concepts practiced:**
-- Using community-maintained images for complex applications
-- Environment variable-driven configuration
-- Interactive TTY containers
-- Resource allocation via environment variables
+**What I learned:**
+- How to run non-web applications (TCP game servers) in Docker
+- How to configure complex software using only environment variables
+- How to keep containers interactive with TTY
 
-### Result
+### What happened when I ran it
 
-The Minecraft server started and reached the `Done!` state in the logs, accepting client connections on the default port. This demonstrated that a production-like game server can be deployed, versioned, and torn down in seconds using only Docker and a compose file.
+The server booted, printed `Done!` in the logs, and was ready to accept connections. A working Minecraft server, deployed in seconds, with no Java installation required.
 
 ```bash
 cd 05-dockercraft
@@ -305,11 +303,11 @@ docker compose up -d
   <img src="./screenshots/06-memcached.png" width="700" alt="Project 06 - Memcached" />
 </p>
 
-### Objective
+### What is this project about?
 
-This project focuses on building a custom Docker image from an official base image. While Memcached can be run directly with `docker run memcached`, wrapping it in a custom Dockerfile is a foundational skill for adding configuration, labels, startup scripts, or extended logic in real-world caching setups.
+Memcached is a fast in-memory cache. You could just run `docker run memcached` directly, but this project is about building your own custom image on top of an official one. This is a skill you need whenever you want to add your own configuration, scripts, or startup logic to an existing tool.
 
-### Technical Implementation
+### How it works
 
 ```dockerfile
 FROM memcached:alpine
@@ -317,18 +315,18 @@ EXPOSE 11211
 CMD ["memcached"]
 ```
 
-The image is derived from `memcached:alpine`, keeping the footprint minimal. The `EXPOSE 11211` instruction documents the standard Memcached port — the protocol port used by all Memcached clients. The `CMD ["memcached"]` starts the daemon in the foreground, which is the correct behavior for Docker containers (a container stops when its main process exits, so running as a foreground daemon keeps it alive).
+The base image is `memcached:alpine`, which keeps things small. `EXPOSE 11211` documents that this container uses port 11211, the standard Memcached port. `CMD ["memcached"]` starts the Memcached process in the foreground. This is important: if you run it in the background, the container has no main process and shuts down immediately. Containers stay alive as long as their main process is running.
 
-In production, additional `CMD` flags can be appended here — for example, `-m 512` to cap memory usage at 512 MB, or `-I 5m` to increase the maximum item size.
+If you needed to limit memory usage later, you could change the CMD to `["memcached", "-m", "512"]` and it would cap at 512 MB.
 
-**Key concepts practiced:**
-- Customizing official base images
-- Port documentation with `EXPOSE`
-- Foreground vs. background daemon processes in containers
+**What I learned:**
+- How to extend official images with a custom Dockerfile
+- Why `EXPOSE` is useful for documentation
+- How foreground vs background processes affect container lifetime
 
-### Result
+### What happened when I ran it
 
-The custom Memcached image was built and run successfully. The daemon started on port 11211 and was reachable via any Memcached client library, confirming that the containerized cache was fully functional.
+The custom image built and started cleanly. Memcached was reachable on port 11211 and responded to cache get/set commands.
 
 ```bash
 cd 06-memcached
@@ -340,17 +338,17 @@ docker run -d -p 11211:11211 my-memcached
 
 ## 07 - Nginx Load Balancer
 
-> **Replaced from original list:** The GFG article suggested **RancherVM** (running VMs as Docker containers using Rancher). RancherVM is largely abandoned and incompatible with modern Kubernetes setups. I replaced it with an Nginx round-robin load balancer — a more practical, universally applicable pattern that appears in virtually every production microservice architecture.
+> **Replaced from original list:** The GeeksForGeeks article suggested **RancherVM** for this slot (running VMs as Docker containers using Rancher). RancherVM is no longer actively maintained and does not work well with modern Kubernetes setups. I replaced it with an Nginx load balancer, which is something you will actually encounter in real backend and DevOps work.
 
 <p align="center">
   <img src="./screenshots/07-load-balancer.png" width="700" alt="Project 07 - Load Balancer" />
 </p>
 
-### Objective
+### What is this project about?
 
-This project implements horizontal scaling: instead of a single application instance, three identical Node.js containers are deployed behind an Nginx reverse proxy that distributes incoming traffic across all of them using round-robin load balancing.
+Instead of running one copy of an application, this project runs three identical copies and puts Nginx in front of them. Nginx decides which copy handles each incoming request. This is called load balancing, and it is one of the most common patterns in any backend system that needs to handle more users.
 
-### Technical Implementation
+### How it works
 
 ```yaml
 # docker-compose.yml
@@ -395,17 +393,17 @@ http {
 }
 ```
 
-The Nginx `upstream` block defines the `node_cluster` group with three backends. Nginx uses round-robin by default — each incoming request is forwarded to the next server in the list, cycling through all three. The service names `app1`, `app2`, `app3` are resolved directly by Docker's internal DNS. The configuration file is mounted as a read-only volume (`ro`) to prevent accidental modification from inside the container.
+The `upstream` block in Nginx defines a group of three servers called `node_cluster`. By default, Nginx uses round-robin: request 1 goes to `app1`, request 2 goes to `app2`, request 3 goes to `app3`, then it starts over. The three container names (`app1`, `app2`, `app3`) are resolved automatically by Docker's internal DNS. The config file is mounted as read-only (`:ro`) so nothing inside the container can accidentally change it.
 
-**Key concepts practiced:**
-- Nginx upstream configuration
-- Round-robin load balancing
-- Docker Compose service scaling patterns
+**What I learned:**
+- How Nginx upstream blocks work
+- How round-robin load balancing distributes traffic
+- How Docker's internal DNS lets containers find each other by name
 - Read-only volume mounts
 
-### Result
+### What happened when I ran it
 
-Hitting `localhost:8080` repeatedly routed requests to different container instances. Each application instance logged the incoming request independently, visually confirming that load was being distributed evenly. This architecture mirrors horizontally scaled API services behind a gateway in production environments.
+Every time I hit `localhost:8080`, a different container handled the request. I could see this in the logs because each container printed its own message. The traffic was splitting evenly across all three.
 
 ```bash
 cd 07-load-balancer
@@ -420,11 +418,11 @@ docker compose up --build
   <img src="./screenshots/08-KubeVirt.png" width="700" alt="Project 08 - KubeVirt VM" />
 </p>
 
-### Objective
+### What is this project about?
 
-This project steps beyond Docker into Kubernetes-native virtualization using **KubeVirt** — a technology that allows traditional Virtual Machines to run as first-class Kubernetes workloads. The VM deployed here, named `ahmad-sentinel-vm`, is a deliberate bridge between container orchestration skills and the virtualization knowledge essential to security infrastructure.
+This project goes beyond Docker into Kubernetes. KubeVirt is a Kubernetes extension that lets you run real Virtual Machines alongside your containers, all managed with the same `kubectl` commands you use for everything else. I deployed a VM called `ahmad-sentinel-vm` as a step toward building security-focused infrastructure.
 
-### Technical Implementation
+### How it works
 
 ```yaml
 # vm.yaml
@@ -451,22 +449,21 @@ spec:
             image: quay.io/kubevirt/cirros-container-disk-demo
 ```
 
-The manifest defines a `VirtualMachine` custom resource using the `kubevirt.io/v1` API. Setting `running: true` instructs the KubeVirt controller to start the VM immediately upon creation. The VM uses a `containerDisk` volume — a container image that holds a raw disk image, pulled from `quay.io`. CirOS is a minimal Linux distribution used for cloud testing. The `virtio` bus driver is the paravirtualized disk interface optimized for KVM guests.
+This is a Kubernetes YAML manifest. Instead of creating a Pod or Deployment (which runs containers), it creates a `VirtualMachine` object, which KubeVirt knows how to handle. The `running: true` field tells KubeVirt to start the VM immediately. The disk is a `containerDisk`, which is a container image that holds a raw disk file inside it. The VM boots from that disk. The `virtio` bus is the fast, paravirtualized disk driver used for KVM virtual machines. The OS inside is CirOS, a tiny Linux image made for cloud testing.
 
-**Why `ahmad-sentinel-vm`?**
+**Why the name `ahmad-sentinel-vm`?**
 
-The name is intentional. A "sentinel" in security architecture is a watchpoint — a node positioned to monitor, inspect, or intercept. This VM represents a foundation for running isolated security tools (network scanners, intrusion detection systems, honeypots) inside a Kubernetes cluster, co-located with microservices, without the security risks of running them directly on the host. This project directly connects my interest in cybersecurity with the practical infrastructure skills needed to build isolated, controlled security environments.
+A sentinel is a guard that watches and monitors. In security, you often need isolated environments to run tools like network scanners, honeypots, or intrusion detection systems without putting those tools directly on a shared host. This VM is a starting point for that idea. It connects my containerization skills to my interest in building security-focused infrastructure.
 
-**Key concepts practiced:**
-- Kubernetes custom resources (CRDs)
-- KubeVirt VM lifecycle management
-- ContainerDisk volumes
-- Virtio paravirtualization drivers
-- Hybrid VM + container cluster architecture
+**What I learned:**
+- How Kubernetes custom resources (CRDs) extend what Kubernetes can do
+- How KubeVirt manages VM lifecycle inside a cluster
+- How ContainerDisk volumes work
+- How VMs and containers can live in the same cluster
 
-### Result
+### What happened when I ran it
 
-The `ahmad-sentinel-vm` VirtualMachine object was created in the cluster. KubeVirt's controller scheduled the VM as a pod (`virt-launcher-ahmad-sentinel-vm-*`), booted CirOS, and brought the VM to a `Running` state — demonstrating that a complete virtual machine can be managed with standard `kubectl` commands, just like any other Kubernetes workload.
+The VM object was created in the cluster. KubeVirt launched it as a pod behind the scenes (`virt-launcher-ahmad-sentinel-vm-*`), booted CirOS, and the VM reached a `Running` state. A real virtual machine, managed with `kubectl`.
 
 ```bash
 kubectl apply -f vm.yaml
@@ -476,19 +473,19 @@ kubectl get vmi
 
 ---
 
-## 09 - Prometheus & Grafana Monitoring
+## 09 - Prometheus and Grafana Monitoring
 
-> **Replaced from original list:** The GFG article suggested **Dokku** (a self-hosted Heroku-like Git deployment platform). While Dokku is functional, it is a niche tool with limited industry adoption. I replaced it with a Prometheus + Grafana monitoring stack — the de facto standard for metrics and observability in containerized environments, and a skill directly expected in backend and DevOps roles.
+> **Replaced from original list:** The GeeksForGeeks article suggested **Dokku** for this slot (a self-hosted platform for deploying apps with Git push, similar to Heroku). Dokku is not widely used in the industry. I replaced it with Prometheus and Grafana, which are the actual standard tools for monitoring in backend and DevOps work at almost every company.
 
 <p align="center">
   <img src="./screenshots/09-monitoring.jpeg.png" width="700" alt="Project 09 - Monitoring Stack" />
 </p>
 
-### Objective
+### What is this project about?
 
-This project deploys a production-grade observability stack. The goal is to collect real-time metrics from running services using Prometheus and visualize them on interactive dashboards in Grafana — the industry-standard combination for container and microservice monitoring.
+This project sets up a monitoring stack. Prometheus collects metrics from your services (numbers like request count, response time, memory usage) and stores them. Grafana reads those metrics and shows them as visual dashboards. Together they let you see exactly what is happening inside your system in real time.
 
-### Technical Implementation
+### How it works
 
 ```yaml
 # docker-compose.yml
@@ -520,19 +517,17 @@ scrape_configs:
       - targets: ["localhost:9090"]
 ```
 
-Prometheus is configured to scrape metrics every 15 seconds. The `prometheus.yml` is mounted as a volume so it can be updated without rebuilding the image. In this configuration, Prometheus scrapes its own metrics endpoint — a self-monitoring pattern useful for validating the pipeline before adding application targets.
+Prometheus is told to scrape metrics every 15 seconds. The config file is mounted as a volume so you can change what Prometheus monitors without rebuilding the image. In this setup, Prometheus monitors itself first, which is a simple way to verify the pipeline is working before connecting real applications. Grafana uses `http://prometheus:9090` as its data source. Docker resolves `prometheus` to the correct container automatically.
 
-Grafana starts after Prometheus via `depends_on` and connects to it using `http://prometheus:9090` as the data source URL. Docker's internal DNS resolves the service name directly.
+**What I learned:**
+- How Prometheus collects time-series metrics
+- How Grafana connects to a data source and builds dashboards
+- How to mount config files as volumes
+- How to control start order with `depends_on`
 
-**Key concepts practiced:**
-- Time-series metrics collection with Prometheus
-- Grafana data source and dashboard configuration
-- Volume-mounted configuration files
-- Service dependency ordering in Docker Compose
+### What happened when I ran it
 
-### Result
-
-Both services started successfully. Prometheus was accessible at `localhost:9090`, displaying its own metrics in the expression browser. Grafana opened at `localhost:3000`, and after adding Prometheus as a data source, dashboards could be built to visualize scrape duration, rule evaluation times, and custom application metrics in real time.
+Prometheus started at `localhost:9090` and showed its own metrics in the query browser. Grafana started at `localhost:3000` and after I added Prometheus as a data source, I could build dashboards to visualize the data live.
 
 ```bash
 cd 09-monitoring
@@ -545,17 +540,17 @@ docker compose up -d
 
 ## 10 - Secure Gateway with Rate Limiting
 
-> **Replaced from original list:** The GFG article suggested **Passenger Docker** (a pre-configured Docker image for deploying Ruby, Node.js, and Python apps). It is a deployment convenience tool with no security dimension. I replaced it with a rate-limiting reverse proxy — a project that directly reflects my interest in cybersecurity and demonstrates a real, exploitable vulnerability (uncapped request rates) being actively defended against.
+> **Replaced from original list:** The GeeksForGeeks article suggested **Passenger Docker** for this slot (a pre-built image for running Ruby, Node.js, and Python apps). It is a convenience wrapper with nothing interesting to learn from a security perspective. I replaced it with a rate-limiting gateway because it directly connects to my interest in cybersecurity and lets me implement a real defense mechanism from scratch.
 
 <p align="center">
   <img src="./screenshots/10-secure-gateway.png" width="700" alt="Project 10 - Secure Gateway" />
 </p>
 
-### Objective
+### What is this project about?
 
-This final project focuses on **application security**. It implements a rate-limiting reverse proxy using Nginx — a technique used to defend API endpoints against brute-force attacks, credential stuffing, and denial-of-service attempts. This is a direct application of cybersecurity principles in a containerized architecture.
+This project is about security. The idea is simple: your backend API should not be reachable directly from the internet. All traffic has to go through a gateway (Nginx), and that gateway limits how many requests any single IP address can make per second. This protects the API from brute-force attacks, credential stuffing, and request flooding.
 
-### Technical Implementation
+### How it works
 
 ```yaml
 # docker-compose.yml
@@ -596,32 +591,32 @@ server {
 }
 ```
 
-**How the rate limiter works:**
+**Breaking down the rate limiter:**
 
-The `limit_req_zone` directive creates a shared memory zone called `mylimit` (10 MB, capable of tracking ~160,000 unique client IPs). It enforces a sustained rate of **5 requests per second per IP address** (`$binary_remote_addr`) using the token-bucket algorithm.
+The `limit_req_zone` line creates a shared memory zone called `mylimit`. It is 10 MB in size, which is enough to track about 160,000 different IP addresses. The rule is: each IP can send a maximum of 5 requests per second. This uses an algorithm called the token bucket: each IP gets a bucket that fills up at 5 tokens per second, and each request uses one token. When the bucket is empty, the request is rejected.
 
-The `burst=10` parameter in `limit_req` allows a short-lived spike of up to 10 additional requests before rejections begin — this tolerates legitimate users loading a page with multiple assets without triggering a false positive. Once the burst capacity is exhausted, Nginx returns `HTTP 503 Service Unavailable`, protecting the backend from being overwhelmed.
+The `burst=10` setting adds a small safety margin. If a user loads a page that needs 8 resources at once, all 8 requests are allowed through without triggering the limit. But if someone sends 50 requests all at once, Nginx stops them and returns `HTTP 503 Service Unavailable`.
 
-The backend (`app_server`) is never exposed directly — it has no published port. All traffic must pass through the gateway, making the rate limiter the single, mandatory enforcement point.
+Notice that `app_server` has no `ports` entry. It is completely hidden inside the Docker network. The only way to reach it is through the gateway. This is network segmentation at the container level.
 
-**Security coverage:**
+**What this defends against:**
 
-| Threat | Protection Provided |
-|--------|---------------------|
-| Brute-force login attacks | Limits attempts to 5/s per IP |
-| Credential stuffing | Exponential backoff via 503 responses |
-| Request flooding / DoS | Burst cap + rate cap absorbs spikes |
-| Direct backend access | Backend not exposed on any public port |
+| Attack Type | How It Is Blocked |
+|-------------|-------------------|
+| Brute-force login | Max 5 attempts per second per IP |
+| Credential stuffing | Same rate limit stops automated scripts |
+| Request flooding / DoS | Burst cap absorbs spikes, rate cap stops the flood |
+| Direct backend access | Backend has no exposed port, unreachable from outside |
 
-**Key concepts practiced:**
-- Nginx `limit_req_zone` and `limit_req` directives
-- Token-bucket rate limiting algorithm
-- Reverse proxy as a security enforcement layer
-- Network segmentation in Docker Compose
+**What I learned:**
+- How Nginx `limit_req_zone` and `limit_req` work
+- How the token-bucket algorithm limits traffic
+- How to use a reverse proxy as a security layer
+- How to isolate a backend service using Docker networking
 
-### Result
+### What happened when I ran it
 
-Under normal usage, all requests passed through to the app server with a `200 OK` response. When requests exceeded 5 per second, Nginx immediately returned `503` responses, protecting the backend entirely. The backend server remained healthy and unreachable from outside the Docker network — only the gateway was exposed on port 8080. This architecture mirrors the ingress security patterns used in production Kubernetes clusters and API gateways.
+Normal requests went through with `200 OK`. When I sent requests faster than 5 per second, Nginx started returning `503` immediately. The backend server never saw the flood at all. It stayed healthy behind the gateway.
 
 ```bash
 cd 10-secure-gateway
@@ -631,32 +626,32 @@ docker compose up -d
 
 ---
 
-## Skills Demonstrated Across All Projects
+## Skills Covered Across All 10 Projects
 
-| Skill Area | Projects |
-|------------|----------|
-| Dockerfile authoring | 01, 02, 03, 06, 07 |
-| Multi-container orchestration | 03, 07, 09, 10 |
-| Nginx configuration (proxy, load balancer, security) | 07, 10 |
-| CI/CD pipeline design | 04 |
-| Kubernetes & KubeVirt | 08 |
-| Observability (Prometheus + Grafana) | 09 |
-| Security (rate limiting, network segmentation) | 10 |
-| Environment variable management | 03, 05 |
-| Image optimization (Alpine base images) | 01, 02, 03, 06, 07 |
+| Skill | Projects |
+|-------|----------|
+| Writing Dockerfiles | 01, 02, 03, 06, 07 |
+| Multi-container orchestration with Compose | 03, 07, 09, 10 |
+| Nginx (reverse proxy, load balancing, security) | 07, 10 |
+| CI/CD pipeline automation | 04 |
+| Kubernetes and KubeVirt | 08 |
+| Monitoring with Prometheus and Grafana | 09 |
+| Security and rate limiting | 10 |
+| Environment variable configuration | 03, 05 |
+| Lightweight Alpine-based images | 01, 02, 03, 06, 07 |
 
 ---
 
 ## How to Run Any Project
 
-Each project is self-contained in its own directory.
+Every project is self-contained inside its own folder.
 
 ```bash
-# Single-container projects (01, 02, 06)
+# Projects with a single Dockerfile (01, 02, 06)
 docker build -t project-name .
 docker run -p <host-port>:<container-port> project-name
 
-# Docker Compose projects (03, 05, 07, 09, 10)
+# Projects using Docker Compose (03, 05, 07, 09, 10)
 docker compose up --build
 
 # Kubernetes project (08)
@@ -666,12 +661,8 @@ kubectl get vm
 
 ---
 
-## About the Author
+## About Me
 
-**Ahmad Oglah Abuzaid**
-German Jordanian University — Computer Science
-Backend Developer Intern — Artl Studio
-
-Focused on the intersection of secure backend systems and cloud-native infrastructure. This challenge was completed as a practical deep-dive into containerization, orchestration, and security patterns that underpin modern software deployments.
+I am Ahmad Oglah Abuzaid, a Computer Science student at the German Jordanian University and a Backend Developer Intern at Artl Studio. My main focus is on cybersecurity and building secure backend systems. I started this challenge to move beyond theory and actually build things with Docker, from the ground up.
 
 [GitHub Profile](https://github.com/Vplo)
