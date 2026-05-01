@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+  app_server:
+    image: node:18-alpine
+    command: >
+      sh -c "node -e \"
+        const http = require('http');
+        http.createServer((req, res) => {
+          res.writeHead(200, {'Content-Type': 'text/plain'});
+          res.end('Hello from App Server\n');
+        }).listen(3000, () => console.log('Server running on port 3000'));
+      \""
+
+  gateway:
+    image: nginx:alpine
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8080:80"
+    depends_on:
+      - app_server

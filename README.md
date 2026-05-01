@@ -92,8 +92,52 @@ docker run -d -p 4000:4000 --name jekyll-container my-jekyll-site
   ```bash
   cd 03-docker-compose
   docker compose up -d --build
+    <img src="./screenshots/03-docker-compose.png alt="GitHub Actions CI/CD Result" width="700"/>
   </p>
   ```
+  ### 4. Creating CI/CD Pipelines with Docker (GitHub Actions)
+- **Difficulty:** Medium
+- **Description:** Implemented automated Continuous Integration (CI) using GitHub Actions. Configured a workflow to automatically build and test Docker images on every code push, ensuring code reliability and preventing broken builds in production.
+- **How it Works:**
+  A `.github/workflows/docker-ci.yml` file triggers a runner on GitHub servers to execute `docker build` automatically upon any push to the main branch.
+- **Result:**
+  <br>
+  <img src="./screenshots/04-.github.png" alt="GitHub Actions CI/CD Result" width="700"/>
+
+  ### 5. Dockercraft (Minecraft Game Server)
+
+- **Difficulty:** Medium
+- **Description:** Deployed a dedicated Minecraft game server using Docker Compose. This project demonstrates how to containerize non-HTTP TCP/UDP applications, manage complex environment variables, and limit container resource usage (RAM).
+- **How to Run:**
+  ```bash
+  cd 05-dockercraft
+  docker compose up -d
+  ```
+
+### 6. Memcached SaaS Using Docker
+
+- **Difficulty:** Easy
+- **Description:** Containerized a Memcached caching server to improve application performance. Wrote a Node.js script to test setting and retrieving data from the cache in real-time.
+- **How to Run:**
+  ```bash
+  cd 06-memcached
+  docker build -t my-memcached .
+  docker run -d -p 11211:11211 --name memcache-saas my-memcached
+  node test-cache.js
+  ```
+
+### 8. Advanced Virtualization: KubeVirt on Kubernetes
+
+- **Difficulty:** Hard
+- **Description:** Deployed a local Kubernetes cluster using Minikube and Docker. Configured KubeVirt to manage Virtual Machines (VMs) alongside containers. This project demonstrates the ability to handle complex cloud-native infrastructure and virtualization layers.
+- **Tools:** Minikube, Kubectl, KubeVirt, YAML.
+- **Result:**
+  <br>
+  <img src="./screenshots/08-kubevirt.jpeg" alt="KubeVirt VM Result" width="700"/>
+
+---
+
+---
 
 ---
 
