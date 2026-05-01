@@ -83,7 +83,17 @@ docker run -d -p 4000:4000 --name jekyll-container my-jekyll-site
 
 <p align="center">
   <img src="./screenshots/02-jekyll-jam.jpeg" width="600" />
-</p>
+
+### 3. Microservices Architecture with Docker Compose
+
+- **Difficulty:** Medium
+- **Description:** Orchestrated a multi-container environment using Docker Compose, successfully linking a Node.js/Express backend service with a MongoDB database container.
+- **How to Run:**
+  ```bash
+  cd 03-docker-compose
+  docker compose up -d --build
+  </p>
+  ```
 
 ---
 
@@ -112,6 +122,7 @@ docker run -d -p 4000:4000 --name jekyll-container my-jekyll-site
 Docker is not just a tool; it is a mindset shift in how software is built and deployed.
 
 This repo is my step-by-step evolution from:
+
 - "I run code on my machine"
 - to "I ship environments anywhere instantly"
 
